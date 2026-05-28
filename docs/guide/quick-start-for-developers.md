@@ -139,8 +139,6 @@ Alternatively, the first time you use `osc`, it will prompt you for this informa
 
 ## Local Build Verification
 
-> This section might not represent the most standard approach. If you have a better method, we welcome your suggestions.
-
 First, check out the project locally with `osc checkout`:
 
 ```bash
@@ -154,20 +152,14 @@ Then run the service so you can download the source code from the build system:
 osc up -S
 ```
 
-After that, because the files the service downloads usually carry a prefix such as `_service:tar_scm:`, you need to rename them to standard filenames so that `obs-build` can recognise them properly:
-
-```bash
-rm -f _service; for file in `ls`; do new_file=${file##*:}; mv $file $new_file; done
-```
-
-Once you have everything ready, you can use `osc build` to invoke the local chroot build environment:
+After that, you can use `osc build` to invoke the local chroot build environment:
 
 ```bash
 # Build for riscv64
-osc build riscv64 riscv64
+osc build --skip-local-service-run riscv64 riscv64
 
 # Build for amd64
-osc build amd64 x86_64
+osc build --skip-local-service-run amd64 x86_64
 ```
 
 If the build succeeds, you will find the generated RPM packages under `/var/tmp/build-root/...` on your local machine. The build log will display the exact path near the end.

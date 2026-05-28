@@ -135,8 +135,6 @@ pass = 您的密码
 
 ## 本地构建验证
 
-> 这一段从 Open Build Service 的角度其实不太规范，如果有更好的办法请告诉我
-
 首先，使用 osc checkout 将工程拉取到本地:
 
 ```bash
@@ -150,20 +148,14 @@ osc co home:misaka00251:cryptsetup/cryptsetup && cd $_
 osc up -S
 ```
 
-之后，因为 service 下载的文件通常带有前缀 (如 `_service:tar_scm:`)，我们需要将其重命名为标准文件名以便 `obs-build` 识别。
-
-```bash
-rm -f _service; for file in `ls`; do new_file=${file##*:}; mv $file $new_file; done
-```
-
-在准备就绪过后，就可以使用 osc build 调用本地的 chroot 环境进行编译了:
+之后，我们就可以使用 osc build 调用本地的 chroot 环境进行编译了:
 
 ```bash
 # Build for riscv64
-osc build riscv64 riscv64
+osc build --skip-local-service-run riscv64 riscv64
 
 # Build for amd64
-osc build amd64 x86_64
+osc build --skip-local-service-run amd64 x86_64
 ```
 
 如果构建成功，生成的 RPM 包将位于本地的 `/var/tmp/build-root/...` (具体路径会在构建日志最后显示) 目录下。
