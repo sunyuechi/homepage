@@ -82,7 +82,7 @@ The packager’s judgment defines “large”, and size alone does not limit thi
 If a package ships runtime libraries, packagers should not place the related files in a separate subpackage such as `%{name}-libs`. For now, such files may remain in the main package, with an explicit dependency declaration such as:
 
 ```specfile
-Provides:       %{name}-libs = %{name}-%{version}
+Provides:       %{name}-libs = %{version}-%{release}
 ```
 
 At the same time, the `%files` section should document, in comments, which files are runtime libraries, to facilitate review and any future migration. For example:

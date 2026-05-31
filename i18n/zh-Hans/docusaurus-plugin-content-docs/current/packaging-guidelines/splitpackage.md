@@ -80,7 +80,7 @@ slug: /guide/packaging-guidelines/SplitPackage
 如果软件包需要运行时库，相关文件不应放入单独的子软件包 (例如 `%{name}-libs`)。目前可以将相关文件先放至主包，并在主包内显式声明对应的依赖:
 
 ```specfile
-Provides:       %{name}-libs = %{name}-%{version}
+Provides:       %{name}-libs = %{version}-%{release}
 ```
 
 同时，需要在 %files 字段以注释的方式声明哪些文件为运行时库，方便 Review 或后续迁移，例如:
